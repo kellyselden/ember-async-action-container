@@ -6,7 +6,7 @@ ember-async-action-container
 
 An async state wrapper
 
-A spiritual successor to https://github.com/DockYard/ember-async-button
+Inspired by https://github.com/DockYard/ember-async-button
 
 Installation
 ------------------------------------------------------------------------------
