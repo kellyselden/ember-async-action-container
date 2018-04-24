@@ -1,7 +1,12 @@
 ember-async-action-container
 ==============================================================================
 
-[Short description of the addon.]
+[![npm version](https://badge.fury.io/js/ember-async-action-container.svg)](https://badge.fury.io/js/ember-async-action-container)
+[![Build Status](https://travis-ci.org/kellyselden/ember-async-action-container.svg?branch=master)](https://travis-ci.org/kellyselden/ember-async-action-container)
+
+An async state wrapper
+
+A spiritual successor to https://github.com/DockYard/ember-async-button
 
 Installation
 ------------------------------------------------------------------------------
@@ -14,7 +19,62 @@ ember install ember-async-action-container
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+```hbs
+{{#async-action-container
+  action=(action "myAction")
+  as |action promise|
+}}
+  <button
+    disabled={{promise.isPending}}
+    {{action action}}
+  >
+    {{#if promise.isPending}}
+      Submitting
+    {{else}}
+      Submit
+    {{/if}}
+  </button>
+{{/async-action-container}}
+```
+
+If you want reset state:
+
+```hbs
+{{#async-action-container
+  action=(action "myAction")
+  callback=(action (mut myPromise))
+  promise=myPromise
+  as |action promise|
+}}
+  <button
+    disabled={{or
+      promise.isPending
+      promise.isFulfilled
+    }}
+    {{action action}}
+  >
+    {{#if promise.isPending}}
+      Submitting
+    {{else if promise.isRejected}}
+      Submit again
+    {{else if promise.isFulfilled}}
+      Submitted
+    {{else}}
+      Submit
+    {{/if}}
+  </button>
+{{/async-action-container}}
+```
+
+Then
+
+```js
+this.set('myPromise', null);
+```
+
+to reset.
+
+The CSS classes exposed are `default`, `pending`, `settled`, `rejected`, and `fulfilled`.
 
 
 Contributing
