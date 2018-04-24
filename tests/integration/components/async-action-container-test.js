@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { render, click, waitFor } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Deferred from 'ember-defer/p-defer';
+import Deferred from 'ember-defer';
 
 let deferred;
 
@@ -36,6 +36,8 @@ module('Integration | Component | async-action-container', function(hooks) {
 
     let promise = click('button');
 
+    await waitFor('.pending');
+
     element.doesNotHaveClass('default');
     element.hasClass('pending');
     element.doesNotHaveClass('settled');
@@ -57,6 +59,8 @@ module('Integration | Component | async-action-container', function(hooks) {
     deferred = new Deferred();
 
     promise = click('button');
+
+    await waitFor('.pending');
 
     element.doesNotHaveClass('default');
     element.hasClass('pending');
@@ -101,6 +105,8 @@ module('Integration | Component | async-action-container', function(hooks) {
 
     let promise = click('button');
 
+    await waitFor('.pending');
+
     element.doesNotHaveClass('default');
     element.hasClass('pending');
     element.doesNotHaveClass('settled');
@@ -131,6 +137,8 @@ module('Integration | Component | async-action-container', function(hooks) {
     deferred = new Deferred();
 
     promise = click('button');
+
+    await waitFor('.pending');
 
     element.doesNotHaveClass('default');
     element.hasClass('pending');
