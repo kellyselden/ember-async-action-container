@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, waitFor } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Deferred from 'ember-defer';
+import { defer } from 'rsvp';
 
 let deferred;
 
@@ -10,7 +10,7 @@ module('Integration | Component | async-action-container', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
-    deferred = new Deferred();
+    deferred = defer();
     this.set('myAction', () => deferred.promise);
   });
 
@@ -56,7 +56,7 @@ module('Integration | Component | async-action-container', function(hooks) {
     element.doesNotHaveClass('fulfilled');
     element.hasText('isPending false');
 
-    deferred = new Deferred();
+    deferred = defer();
 
     promise = click('button');
 
@@ -134,7 +134,7 @@ module('Integration | Component | async-action-container', function(hooks) {
     element.doesNotHaveClass('fulfilled');
     element.hasText('isPending');
 
-    deferred = new Deferred();
+    deferred = defer();
 
     promise = click('button');
 
