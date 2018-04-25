@@ -1,6 +1,6 @@
 {
   "name": "ember-async-action-container",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An async state wrapper",
   "keywords": [
     "ember-addon"
